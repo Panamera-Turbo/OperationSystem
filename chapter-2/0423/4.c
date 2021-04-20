@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     key_t msg_key = IPC_PRIVATE;
     // int msg_flag = 0;
 
-    printf("%d\n", msg_key);//测试，待注释
+    printf("msg_key = %d\n", msg_key);//测试，待注释
 
     creat_flag = msgget(msg_key, IPC_CREAT | IPC_EXCL); //没有则创建，有则出错
 
