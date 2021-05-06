@@ -21,7 +21,7 @@ do
         echo "file not changed"
     else
         changed_count+=1
-        echo "file "$filename" size changed"
+        echo "file "$filename" size changed"·
     fi
 
     if [ $unchanged_count -ge 10 ]
