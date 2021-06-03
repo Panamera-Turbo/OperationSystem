@@ -2,10 +2,12 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <unistd.h>
 
 #define N 10// length of buffer
 
-pthread_mutex_t mutex, inLock, outLock;
+
+pthread_mutex_t mutex;
 sem_t empty, full;
 
 int in, out, buffer[N];
@@ -18,7 +20,6 @@ void *produce(void *id){
 		int tmp = *(int *)id, product;
 		printf("Producer%d is trying producing...\n", tmp);
 		sem_wait(&empty);
-		pthread_mutex_lock(&inLock);
 		pthread_mutex_lock(&mutex);
 		usleep(3000);
 		scanf("%d", &product);
@@ -27,7 +28,6 @@ void *produce(void *id){
 		in = (in + 1) % N;
 		sem_post(&full);
 		pthread_mutex_unlock(&mutex);
-		pthread_mutex_unlock(&inLock);
 	}
 }
 void *consume(void *id){
@@ -38,14 +38,12 @@ void *consume(void *id){
 		int tmp = *(int *)id;
 		printf("Consumer%d is trying consuming...\n", tmp);
 		sem_wait(&full);
-		pthread_mutex_lock(&outLock);
 		pthread_mutex_lock(&mutex);
 		usleep(rand()%10000 + 1000);// sleep for some time
 		printf("Consumer%d consumes %d product successfully...\n", tmp, buffer[out]);
 		out = (out + 1) % N;
 		sem_post(&empty);
 		pthread_mutex_unlock(&mutex);
-		pthread_mutex_unlock(&outLock);
 	}
 }
 
