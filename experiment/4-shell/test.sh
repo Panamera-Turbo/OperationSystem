@@ -9,7 +9,7 @@ size=$(ls -l $filename | cut -d " " -f 5)
 # echo $size
 unchanged_count=0
 changed_count=0
-t=0
+# t=0
 
 for((i=1;i<10;i++))
 do
@@ -21,6 +21,7 @@ do
         echo "file not changed"
     else
         changed_count+=1
+        size=new_size
         echo "file "$filename" size changed"·
     fi
 

@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <semaphore.h>
 
-#define N 10// length of buffer
+//这里要尝试把inlock和outlock注释了看跑的对不对，因为实验报告不知道咋写了
+#define N 10	// length of buffer
 
 pthread_mutex_t mutex, inLock, outLock;
 sem_t empty, full;
@@ -36,12 +37,12 @@ void *consume(void *id){
     while (1)
     {
 		int tmp = *(int *)id;
-		printf("Consumer%d is trying consuming...\n", tmp);
+		printf("Consumer%d is consuming...\n", tmp);
 		sem_wait(&full);
 		pthread_mutex_lock(&outLock);
 		pthread_mutex_lock(&mutex);
 		usleep(rand()%10000 + 1000);// sleep for some time
-		printf("Consumer%d consumes %d product successfully...\n", tmp, buffer[out]);
+		printf("Consumer%d consumes %d product(s) successfully...\n", tmp, buffer[out]);
 		out = (out + 1) % N;
 		sem_post(&empty);
 		pthread_mutex_unlock(&mutex);

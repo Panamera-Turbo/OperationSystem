@@ -38,8 +38,10 @@ void main()
     if(pid > 0)
     {
         /*parent-r*/
+        waitpid(pid1, NULL, 0);
         read(pipefd[0], c_buf, 37); 
         printf( "%s\n", c_buf);
+        waitpid(pid2, NULL, 0);
         read(pipefd[0], c_buf, 37); 
         printf( "%s\n", c_buf);
         close(pipefd[0]);

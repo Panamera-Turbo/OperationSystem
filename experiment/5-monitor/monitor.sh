@@ -1,8 +1,6 @@
-echo "Usage:sh ./monitor.sh [username]"
-
 if [ $# -ge 2]
 then 
-    echo "only one user"
+    echo "Usage: usr_monitor  username"
 fi
 
 if [ $# -eq 0]
@@ -10,11 +8,12 @@ then
     echo "input one username!"
 fi
 
+
 target_name=$1
 
 
 name_list=$(who | cut -d" " -f 1)
-echo $name
+echo $name  #这里有错，要求是打印name_list
 
 while [ 1 ]
 do

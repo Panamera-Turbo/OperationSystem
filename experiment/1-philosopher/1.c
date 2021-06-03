@@ -5,29 +5,26 @@
 #include <unistd.h>
 
 #define N 5 // five philosopher
-#define T_EAT 5
-#define T_THINK 5
 #define N_ROOM  4  //同一时间只允许４人用餐
 #define left(phi_id) (phi_id+N-1)%N
 #define right(phi_id) (phi_id+1)%N
 
-enum { think , hungry , eat  }phi_state[N];
+// enum { think , hungry , eat  }phi_state[N];
 sem_t chopstick[N];
 sem_t room;
 
 void thinking(int id){
-    sleep(T_THINK);
-    printf("philosopher[%d] is thinking...\n", id);
+    sleep(5);
+    printf("哲学家[%d]在思考...\n", id);
 }
 
 void eating(int id){
-    sleep(T_EAT);
-    printf("philosopher[%d] is eating...\n", id);
+    sleep(5);
+    printf("哲学家[%d]在吃饭...\n", id);
 }
 
 void take_forks(int id){
     //获取左右两边的筷子
-    //printf("Pil[%d], left[%d], right[%d]\n", id, left(id), right(id));
     if((id&1) == 1){
         sem_wait(&chopstick[left(id)]);
         sem_wait(&chopstick[right(id)]);
@@ -36,18 +33,18 @@ void take_forks(int id){
         sem_wait(&chopstick[right(id)]);
         sem_wait(&chopstick[left(id)]);
     }
-    //printf("philosopher[%d]  take_forks...\n", id);
+    printf("哲学家[%d]拿起筷子...\n", id);
 }
 
 void put_down_forks(int id){
-    printf("philosopher[%d] is put_down_forks...\n", id);
+    printf("哲学家[%d]放下筷子...\n", id);
     sem_post(&chopstick[left(id)]);
     sem_post(&chopstick[right(id)]);
 }
 
 void* philosopher_work(void *arg){
     int id = *(int*)arg;
-    printf("philosopher init [%d] \n", id);
+    printf("初始化[%d]号哲学家…… \n", id);
     while(1){
         thinking(id);
         sem_wait(&room);
@@ -80,7 +77,7 @@ int main(){
         id[i] = i;
         err = pthread_create(&phiTid[i], NULL, philosopher_work, (void*)(&id[i])); //这种情况生成的thread id是0,1,2,3,4
         if (err != 0)
-            printf("can't create process for reader\n");
+            printf("system error \n");
     }
 
     while(1);

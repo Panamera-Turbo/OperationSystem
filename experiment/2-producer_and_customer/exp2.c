@@ -13,7 +13,7 @@ int in, out, buffer[N];
 void *produce(void *id){
 	int i;
 	// for (i = 0;i < 10;i ++)
-    while (1)=[==[[==[o=[]]]]]
+    while (1)
     {
 		int tmp = *(int *)id, product;
 		printf("Producer%d is trying producing...\n", tmp);
