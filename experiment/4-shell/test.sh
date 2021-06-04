@@ -2,7 +2,6 @@ clear
 # echo "Hello, world!"
 echo "Please input the name of the file"
 read filename
-# filename=a.txt
 ls -l $filename
 
 size=$(ls -l $filename | cut -d " " -f 5)
@@ -23,12 +22,6 @@ do
         changed_count+=1
         size=new_size
         echo "file "$filename" size changed"·
-    fi
-
-    if [ $unchanged_count -ge 10 ]
-    then
-        echo "已连续检测了十次还未改变大小"
-        exit
     fi
 
     if [ $changed_count -ge 2 ]

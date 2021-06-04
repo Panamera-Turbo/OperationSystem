@@ -8,12 +8,10 @@ then
     echo "input one username!"
 fi
 
-
 target_name=$1
 
-
 name_list=$(who | cut -d" " -f 1)
-echo $name  #这里有错，要求是打印name_list
+echo $name_list  #这里有错，要求是打印name_list
 
 while [ 1 ]
 do
@@ -24,5 +22,5 @@ do
     done
 
     echo "waiting user"$target_name"..."
-    sleep 5s
+    sleep 1s
 done
