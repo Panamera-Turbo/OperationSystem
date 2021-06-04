@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
 
 	if(argc!=3){
 		printf("input error\n");
-		return -1;}
-	else{
-		printf("src_file: %s\n",argv[1]);
-		printf("dest_file: %s\n",argv[2]);
+		return -1;
+	}else{
+		printf("src_file: %s\n", argv[1]);
+		printf("dest_file: %s\n", argv[2]);
 		if(lstat(argv[1],&sourcestat) == -1){
 			printf("get argv[1] stat error\n"); 
 			return -1;
@@ -34,10 +34,10 @@ int main(int argc, char *argv[])
 		if(S_ISDIR(sourcestat.st_mode)){
 			if(access(argv[2], F_OK)!=0) {
 				ret = mkdir(argv[2],sourcestat.st_mode);
-				printf("mkdir the ret is %d\n",ret);
+				printf("mkdir the ret is %d\n", ret);
 			}
 			else{
-				if(lstat(argv[2],&deststat) == -1{
+				if(lstat(argv[2],&deststat) == -1){
 					printf("ERROR:get argv[1] stat error\n"); 
 					return -1;
 				}

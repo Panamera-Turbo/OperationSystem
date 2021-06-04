@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $# -ge 2 ]
 then 
-    echo "Usage: usr_monitor  username"
+    echo "Usage: bash monitor.sh  username"
     exit
 fi
 
@@ -14,17 +14,28 @@ fi
 target_name=$1
 echo "target user: "$target_name
 echo ""
+
 name_list=$(who | cut -d" " -f 1)
-echo $name_list
+echo "name list: "
+for rc in ${name_list[*]}
+do
+    echo $rc
+done
+
 echo ""
+
 while [ 1 ]
 do
-    for target_name in ${name_list[*]}
+    for rc in ${name_list[*]}
     do  
-        echo $target_name" logged in"
-        exit
+        if [ $rc = $target_name ]
+        then
+            echo $target_name" logged in"
+            exit
+        fi
     done
 
     echo "waiting user "$target_name"..."
+    name_list=$(who | cut -d" " -f 1)
     sleep 1s
 done
