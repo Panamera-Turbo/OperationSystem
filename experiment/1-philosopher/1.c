@@ -23,9 +23,9 @@ void eating(int id){
     printf("哲学家[%d]在吃饭...\n", id);
 }
 
-void take_forks(int id){
+void take_chopsticks(int id){
     //获取左右两边的筷子
-    if((id&1) == 1){
+    if((id%2) == 1){    
         sem_wait(&chopstick[left(id)]);
         sem_wait(&chopstick[right(id)]);
     }
@@ -36,7 +36,7 @@ void take_forks(int id){
     printf("哲学家[%d]拿起筷子...\n", id);
 }
 
-void put_down_forks(int id){
+void put_down_chopsticks(int id){
     printf("哲学家[%d]放下筷子...\n", id);
     sem_post(&chopstick[left(id)]);
     sem_post(&chopstick[right(id)]);
@@ -48,10 +48,10 @@ void* philosopher_work(void *arg){
     while(1){
         thinking(id);
         sem_wait(&room);
-        take_forks(id);
+        take_chopsticks(id);
         sem_post(&room);
         eating(id);
-        put_down_forks(id);
+        put_down_chopsticks(id);
     }
 }
 
@@ -66,7 +66,7 @@ int main(){
     {
         if(sem_init(&chopstick[i], 0, 1) != 0)
         {
-            printf("init forks error\n");
+            printf("init chopsticks error\n");
         }
     }
 
@@ -81,8 +81,6 @@ int main(){
     }
 
     while(1);
-
-    // delete the source of semaphore
     for (i = 0; i < N; i++)
     {
         err = sem_destroy(&chopstick[i]);

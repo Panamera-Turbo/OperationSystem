@@ -7,9 +7,9 @@
 #include<sys/stat.h>
 #include<string.h>
 
-void cp_file(const char *src_path, const char *des_path)
-{
-    int src_f = open(src_path, O_RDONLY), des_f = open(des_path, O_CREAT | O_TRUNC | O_RDWR, 0777);
+void cp_file(const char *src_path, const char *des_path){
+    int src_f = open(src_path, O_RDONLY);
+    int des_f = open(des_path, O_CREAT | O_TRUNC | O_RDWR, 0777);
     if(src_f == -1 || des_f == -1){
         printf("fail to open the file!\n");
         return;
