@@ -44,8 +44,10 @@ void cp_dir(const char* old_path, const char* new_path)
         char next_old[128], next_new[128];
         strcpy(next_old, old_path);
         strcpy(next_new, new_path);
-        strcat(next_old, "/"); strcat(next_old, redir->d_name);
-        strcat(next_new, "/"); strcat(next_new, redir->d_name);
+        strcat(next_old, "/"); 
+        strcat(next_old, redir->d_name);
+        strcat(next_new, "/"); 
+        strcat(next_new, redir->d_name);
         if((redir->d_type & DT_REG) == DT_REG)//普通文件则复制
 			cp_file(next_old, next_new);    
 		else if((redir->d_type & DT_DIR) == DT_DIR)//目录则递归
